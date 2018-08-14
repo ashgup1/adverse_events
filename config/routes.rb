@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root :to => "safety_events#index"
   # Routes for the Safety_event resource:
   # CREATE
   get "/safety_events/new", :controller => "safety_events", :action => "new"
