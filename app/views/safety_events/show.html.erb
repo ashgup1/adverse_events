@@ -12,7 +12,13 @@
       <dd><%= @safety_event.classification_id %></dd>
 
       <dt>User</dt>
-      <dd><%= @safety_event.user_id %></dd>
+      <dd>
+        <% if @safety_event.user.present? %>
+          <a href="/users/<%= @safety_event.user_id %>">
+            <%= @safety_event.user.email %>
+          </a>
+        <% end %>
+      </dd>
 
       <dt>Root cause</dt>
       <dd><%= @safety_event.root_cause %></dd>
