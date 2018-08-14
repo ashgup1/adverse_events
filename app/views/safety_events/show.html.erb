@@ -9,7 +9,13 @@
       <dd><%= @safety_event.comment %></dd>
 
       <dt>Classification</dt>
-      <dd><%= @safety_event.classification_id %></dd>
+      <dd>
+        <% if @safety_event.classification.present? %>
+          <a href="/classifications/<%= @safety_event.classification_id %>">
+            <%= @safety_event.classification.event_id %>
+          </a>
+        <% end %>
+      </dd>
 
       <dt>User</dt>
       <dd>

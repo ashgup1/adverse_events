@@ -33,7 +33,7 @@
           Classification
         </label>
 
-        <input type="text" id="classification_id" name="classification_id" placeholder="Classification" class="form-control" value="<%= @safety_event.classification_id %>">
+        <%= select_tag(:classification_id, options_from_collection_for_select(Classification.all, :id, :event_id, @safety_event.classification_id), :class => "form-control") %>
       </div>
 
       <!-- Label and input for user_id -->

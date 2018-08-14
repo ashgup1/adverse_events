@@ -24,11 +24,6 @@
   </div>
 
 <div class="form-group">
-    <%= f.label :classification_id_cont, "Classification contains" %>
-    <%= f.text_field :classification_id_cont, :class => "form-control", :placeholder => "Classification contains" %>
-  </div>
-
-<div class="form-group">
           <%= f.label :created_at, "Created at" %>
           <div class="row">
             <div class='col-md-6 mb-1'>
@@ -73,6 +68,18 @@
       <%= f.text_field :user_email_cont, :class => "form-control", :placeholder => "User email contains" %>
     </div>
 
+<div class="form-group">
+  <%= f.label :event_id, "Classification Event" %>
+  <div class="row">
+    <div class='col-md-6 mb-1'>
+      <%= f.text_field :classification_event_id_gteq, :class => "form-control", :placeholder => "Classification Event greater than or equal to" %>
+    </div>
+    <div class='col-md-6'>
+      <%= f.text_field :classification_event_id_lteq, :class => "form-control", :placeholder => "Classification Event less than or equal to" %>
+    </div>
+  </div>
+</div>
+
       <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
 
       <a href="/safety_events" class="btn btn-default btn-block mb-1">Clear filters</a>
@@ -98,7 +105,13 @@
       <% @safety_events.each do |safety_event| %>
       <tr>
         <td><%= safety_event.comment %></td>
-        <td><%= safety_event.classification_id %></td>
+        <td>
+          <% if safety_event.classification.present? %>
+            <a href="/classifications/<%= safety_event.classification.id %>">
+              <%= safety_event.classification.event_id %>
+            </a>
+          <% end %>
+        </td>
         <td>
           <% if safety_event.user.present? %>
             <a href="/users/<%= safety_event.user.id %>">
