@@ -1,0 +1,73 @@
+<!-- Validation failure messages -->
+<% if @safety_event.errors.any? %>
+  <% @safety_event.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Safety Event</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_safety_event" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for comment -->
+      <div class="form-group">
+        <label for="comment" class="control-label">
+          Comment
+        </label>
+
+        <textarea id="comment" name="comment" placeholder="Comment" class="form-control" rows="3"><%= @safety_event.comment %></textarea>
+      </div>
+
+      <!-- Label and input for classification_id -->
+      <div class="form-group">
+        <label for="classification_id" class="control-label">
+          Classification
+        </label>
+
+        <input type="text" id="classification_id" name="classification_id" placeholder="Classification" class="form-control" value="<%= @safety_event.classification_id %>">
+      </div>
+
+      <!-- Label and input for user_id -->
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+
+        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @safety_event.user_id %>">
+      </div>
+
+      <!-- Label and input for root_cause -->
+      <div class="form-group">
+        <label for="root_cause" class="control-label">
+          Root cause
+        </label>
+
+        <textarea id="root_cause" name="root_cause" placeholder="Root cause" class="form-control" rows="3"><%= @safety_event.root_cause %></textarea>
+      </div>
+
+      <!-- Label and input for action_plan -->
+      <div class="form-group">
+        <label for="action_plan" class="control-label">
+          Action plan
+        </label>
+
+        <textarea id="action_plan" name="action_plan" placeholder="Action plan" class="form-control" rows="3"><%= @safety_event.action_plan %></textarea>
+      </div>
+
+      <button class="btn btn-success">
+        Create Safety Event
+      </button>
+      or
+      <a href="/safety_events">Cancel</a>
+    </form>
+  </div>
+</div>
