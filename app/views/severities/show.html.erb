@@ -1,0 +1,106 @@
+<div class="page-header">
+  <h3>Severity #<%= @severity.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Event</dt>
+      <dd><%= @severity.event_id %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/severities" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/severities/<%= @severity.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_severity/<%= @severity.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A Severity has many safety_events -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Safety Events
+      </li>
+
+      <% @severity.safety_events.each do |safety_event| %>
+        <li class="list-group-item">
+          <a href="/safety_events/<%= safety_event.id %>">
+            <%= safety_event.comment %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/safety_events/<%= safety_event.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/safety_events/<%= safety_event.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_safety_event/<%= safety_event.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_safety_event" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for comment -->
+      <div class="form-group">
+        <label for="comment" class="control-label">
+          Comment
+        </label>
+
+        <textarea id="comment" name="comment" placeholder="Comment" class="form-control" rows="3"></textarea>
+      </div>
+
+      <!-- Label and input for classification_id -->
+      <div class="form-group">
+        <label for="classification_id" class="control-label">
+          Classification
+        </label>
+
+        <%= select_tag(:classification_id, options_from_collection_for_select(Severity.all, :id, :event_id), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for root_cause -->
+      <div class="form-group">
+        <label for="root_cause" class="control-label">
+          Root cause
+        </label>
+
+        <textarea id="root_cause" name="root_cause" placeholder="Root cause" class="form-control" rows="3"></textarea>
+      </div>
+
+      <!-- Label and input for action_plan -->
+      <div class="form-group">
+        <label for="action_plan" class="control-label">
+          Action plan
+        </label>
+
+        <textarea id="action_plan" name="action_plan" placeholder="Action plan" class="form-control" rows="3"></textarea>
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Safety Event
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>

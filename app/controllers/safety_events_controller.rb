@@ -11,7 +11,7 @@ class SafetyEventsController < ApplicationController
 
   def index
     @q = SafetyEvent.ransack(params[:q])
-    @safety_events = @q.result(:distinct => true).includes(:user).page(params[:page]).per(10)
+    @safety_events = @q.result(:distinct => true).includes(:user, :classification).page(params[:page]).per(10)
 
     render("safety_events/index.html.erb")
   end
