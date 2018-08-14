@@ -26,8 +26,11 @@
         <td><%= safety_event.action_plan %></td>
         <td>
           <a href="/safety_events/<%= safety_event.id %>" class="btn btn-primary">Show</a>
-          <a href="/safety_events/<%= safety_event.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_safety_event/<%= safety_event.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          
+          <% if current_user == safety_event.user %>
+            <a href="/safety_events/<%= safety_event.id %>/edit" class="btn btn-warning">Edit</a>
+            <a href="/delete_safety_event/<%= safety_event.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <% end %>
         </td>
       </tr>
       <% end %>

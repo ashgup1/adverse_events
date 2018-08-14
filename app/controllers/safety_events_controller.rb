@@ -1,4 +1,14 @@
 class SafetyEventsController < ApplicationController
+  before_action :current_user_must_be_safety_event_user, :only => [:edit, :update, :destroy]
+
+  def current_user_must_be_safety_event_user
+    safety_event = SafetyEvent.find(params[:id])
+
+    unless current_user == safety_event.user
+      redirect_to :back, :alert => "You are not authorized for that."
+    end
+  end
+
   def index
     @safety_events = SafetyEvent.all
 
