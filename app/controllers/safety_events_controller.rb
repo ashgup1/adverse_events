@@ -10,7 +10,7 @@ class SafetyEventsController < ApplicationController
   end
 
   def index
-    @safety_events = SafetyEvent.all
+    @safety_events = SafetyEvent.page(params[:page]).per(10)
 
     render("safety_events/index.html.erb")
   end
